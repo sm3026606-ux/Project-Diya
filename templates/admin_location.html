@@ -9,8 +9,6 @@
 
 <title>Live Location</title>
 
-<meta http-equiv="refresh" content="30">
-
 <style>
 
 body{
@@ -86,40 +84,76 @@ font-size:18px;
 <h1>📍 Live Location Dashboard</h1>
 
 <div class="item">
-<b>Latitude :</b> {{ location.latitude }}
+<b>Latitude :</b> <span id="lat">{{ location.latitude }}</span>
 </div>
 
 <div class="item">
-<b>Longitude :</b> {{ location.longitude }}
+<b>Longitude :</b> <span id="lng">{{ location.longitude }}</span>
 </div>
 
 <div class="item">
-<b>Accuracy :</b> {{ location.accuracy }}
+<b>Accuracy :</b> <span id="acc">{{ location.accuracy }}</span>
 </div>
 
 <div class="item">
-<b>City :</b> {{ location.city }}
+<b>City :</b> <span id="city">{{ location.city }}</span>
 </div>
 
 <div class="item">
-<b>State :</b> {{ location.state }}
+<b>State :</b> <span id="state">{{ location.state }}</span>
 </div>
 
 <div class="item">
-<b>Country :</b> {{ location.country }}
+<b>Country :</b> <span id="country">{{ location.country }}</span>
 </div>
 
 <div class="item">
-<b>Last Update :</b> {{ location.last_update }}
+<b>Last Update :</b> <span id="time">{{ location.last_update }}</span>
 </div>
 
-<a href="{{ location.maps }}" target="_blank">
+<a id="mapBtn" href="{{ location.maps }}" target="_blank">
 
 🗺️ Open Google Maps
 
 </a>
 
 </div>
+
+<script>
+
+async function refreshLocation(){
+
+    try{
+
+        const res = await fetch("/api/location");
+
+        const data = await res.json();
+
+        document.getElementById("lat").innerHTML = data.latitude;
+        document.getElementById("lng").innerHTML = data.longitude;
+        document.getElementById("acc").innerHTML = data.accuracy;
+        document.getElementById("city").innerHTML = data.city;
+        document.getElementById("state").innerHTML = data.state;
+        document.getElementById("country").innerHTML = data.country;
+        document.getElementById("time").innerHTML = data.last_update;
+
+        document.getElementById("mapBtn").href = data.maps;
+
+    }
+
+    catch(e){
+
+        console.log(e);
+
+    }
+
+}
+
+setInterval(refreshLocation,15000);
+
+refreshLocation();
+
+</script>
 
 </body>
 

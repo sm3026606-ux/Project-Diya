@@ -1,8 +1,31 @@
-from flask import Flask, render_template, request, jsonify
-import os
+from flask import Flask, render_template, request, jsonify, Response
 from datetime import datetime
+import os
+from functools import wraps
 
 app = Flask(__name__)
+
+USERNAME = "soumen"
+PASSWORD = "diya@2026"
+
+def check_auth(username, password):
+    return username == USERNAME and password == PASSWORD
+
+def authenticate():
+    return Response(
+        "Login Required",
+        401,
+        {"WWW-Authenticate": 'Basic realm="Project Diya"'}
+    )
+
+def requires_auth(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        auth = request.authorization
+        if not auth or not check_auth(auth.username, auth.password):
+            return authenticate()
+        return f(*args, **kwargs)
+    return decorated
 
 # Latest Live Location
 latest_location = {
@@ -64,12 +87,17 @@ def update_location():
 # ==========================
 
 @app.route("/admin/location")
+@requires_auth
 def admin_location():
-
     return render_template(
         "admin_location.html",
         location=latest_location
     )
+
+@app.route("/api/location")
+@requires_auth
+def api_location():
+    return jsonify(latest_location)
 
 
 if __name__ == "__main__":
