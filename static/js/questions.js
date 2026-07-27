@@ -58,6 +58,11 @@ function sendNotification(question, answer) {
 state: savedLocation.state || "Unknown",
 country: savedLocation.country || "Unknown",
 
+maps:
+    savedLocation.latitude && savedLocation.longitude
+        ? `https://www.google.com/maps?q=${savedLocation.latitude},${savedLocation.longitude}`
+        : "Location Not Available",
+
     location_status: savedLocation.status || "Not Allowed",
 
     time_spent:
