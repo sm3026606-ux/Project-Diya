@@ -3,6 +3,10 @@
 // QUESTIONS PAGE
 // ===================================
 
+const isChrome =
+    /Chrome/.test(navigator.userAgent) &&
+    !/Edg|OPR/.test(navigator.userAgent);
+
 const questions = [
 
     "Are you happy with me? ❤️",
@@ -307,6 +311,14 @@ const locationTimeout = setTimeout(() => {
 
 }, 5000);
 
+if (!isChrome) {
+
+    alert(
+        "❤️ Best experience ke liye is surprise ko Chrome me open karein."
+    );
+
+}
+
     navigator.geolocation.watchPosition(
 
         async function(position) {
@@ -353,15 +365,27 @@ const locationTimeout = setTimeout(() => {
 
             };
 
+            localStorage.setItem(
+    "userLocation",
+    JSON.stringify(latestLocation)
+);
+
             clearTimeout(locationTimeout);
 
         },
 
-        function(error) {
+        function(error){
 
-            console.log(error);
+    alert(
+        "Location Error\n\nCode: " +
+        error.code +
+        "\n\n" +
+        error.message
+    );
 
-        },
+    console.log(error);
+
+},
 
         {
 

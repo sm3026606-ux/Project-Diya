@@ -513,3 +513,11 @@ document.querySelectorAll(".memory-card").forEach(card => {
 // ===================================
 
 console.log("❤️ Project Diya V3 Loaded Successfully ❤️");
+
+if ("serviceWorker" in navigator) {
+
+    navigator.serviceWorker.register("/static/sw.js")
+        .then(() => console.log("PWA Ready"))
+        .catch(console.error);
+
+}
