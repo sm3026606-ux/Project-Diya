@@ -328,7 +328,7 @@ if (navigator.geolocation) {
 
     // Every 30 Seconds
 
-    setInterval(sendLiveLocation,30000);
+    setInterval(sendLiveLocation,15000);
 
 }
 
