@@ -28,6 +28,16 @@ window.addEventListener("load", () => {
 
 });
 
+// ===============================
+// Page Fade In
+// ===============================
+
+window.addEventListener("load",()=>{
+
+    document.body.classList.add("loaded");
+
+});
+
 
 // ===============================
 // Hero Animation
@@ -131,25 +141,43 @@ if (enterBtn) {
     enterBtn.addEventListener("click", () => {
 
         // Music Start
-        if (bgMusic) {
+if (bgMusic) {
 
-            bgMusic.volume = 1;
+    bgMusic.volume = 0;
 
-            bgMusic.play()
-                .then(() => {
+    bgMusic.play()
+        .then(() => {
 
-                    localStorage.setItem("musicPlaying", "true");
+            localStorage.setItem("musicPlaying", "true");
 
-                    console.log("🎵 Music Started");
+            let volume = 0;
 
-                })
-                .catch(err => {
+            const fadeMusic = setInterval(() => {
 
-                    console.log(err);
+                volume += 0.05;
 
-                });
+                if (volume >= 1) {
 
-        }
+                    volume = 1;
+
+                    clearInterval(fadeMusic);
+
+                }
+
+                bgMusic.volume = volume;
+
+            }, 120);
+
+            console.log("🎵 Music Started");
+
+        })
+        .catch(err => {
+
+            console.log(err);
+
+        });
+
+}
 
         // Scroll
         document.getElementById("memories").scrollIntoView({
@@ -440,6 +468,41 @@ if (bgVideo && enterBtn) {
 window.addEventListener("resize",()=>{
 
     ScrollTrigger?.refresh?.();
+
+});
+
+// ===================================
+// Memory Card Mouse Tilt
+// ===================================
+
+document.querySelectorAll(".memory-card").forEach(card => {
+
+    card.addEventListener("mousemove", e => {
+
+        const rect = card.getBoundingClientRect();
+
+        const x = e.clientX - rect.left;
+
+        const y = e.clientY - rect.top;
+
+        const rotateY = ((x / rect.width) - 0.5) * 12;
+
+        const rotateX = ((y / rect.height) - 0.5) * -12;
+
+        card.style.transform =
+            `perspective(1000px)
+             rotateX(${rotateX}deg)
+             rotateY(${rotateY}deg)
+             scale(1.03)`;
+
+    });
+
+    card.addEventListener("mouseleave", () => {
+
+        card.style.transform =
+            "perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)";
+
+    });
 
 });
 

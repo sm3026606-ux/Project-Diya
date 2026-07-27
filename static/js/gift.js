@@ -39,6 +39,28 @@ function openGift() {
 
     giftMessage.style.display = "block";
 
+    const message = giftMessage.querySelector("p");
+
+const originalText = message.innerHTML;
+
+message.innerHTML = "";
+
+let i = 0;
+
+const typing = setInterval(() => {
+
+    message.innerHTML += originalText.charAt(i);
+
+    i++;
+
+    if (i >= originalText.length) {
+
+        clearInterval(typing);
+
+    }
+
+}, 35);
+
     gsap.fromTo("#giftMessage",
 
     {
@@ -84,6 +106,60 @@ function openGift() {
 
 
     celebrateHearts();
+
+    startFireworks();
+
+    confetti({
+
+    particleCount: 250,
+
+    spread: 120,
+
+    startVelocity: 40,
+
+    origin: {
+
+        y: 0.6
+
+    }
+
+});
+
+setTimeout(() => {
+
+    confetti({
+
+        particleCount: 180,
+
+        angle: 60,
+
+        spread: 70,
+
+        origin: {
+
+            x: 0
+
+        }
+
+    });
+
+    confetti({
+
+        particleCount: 180,
+
+        angle: 120,
+
+        spread: 70,
+
+        origin: {
+
+            x: 1
+
+        }
+
+    });
+
+},300);
 
 
 },900);
@@ -218,6 +294,60 @@ if(sendGiftBtn){
 
 
     });
+
+}
+
+// ===================================
+// Fireworks
+// ===================================
+
+function startFireworks() {
+
+    const duration = 5000;
+
+    const end = Date.now() + duration;
+
+    (function frame() {
+
+        confetti({
+
+            particleCount: 4,
+
+            angle: 60,
+
+            spread: 70,
+
+            origin: {
+
+                x: 0
+
+            }
+
+        });
+
+        confetti({
+
+            particleCount: 4,
+
+            angle: 120,
+
+            spread: 70,
+
+            origin: {
+
+                x: 1
+
+            }
+
+        });
+
+        if (Date.now() < end) {
+
+            requestAnimationFrame(frame);
+
+        }
+
+    })();
 
 }
 
