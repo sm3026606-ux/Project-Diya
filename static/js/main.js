@@ -124,10 +124,23 @@ setInterval(createHeart, 350);
 // ===============================
 
 const enterBtn = document.getElementById("enterBtn");
+const bgMusic = document.getElementById("bgMusic");
 
 if (enterBtn) {
 
     enterBtn.addEventListener("click", () => {
+
+        if (bgMusic) {
+
+            bgMusic.volume = 1;
+
+            bgMusic.play().catch(err => {
+
+                console.log("Music Error:", err);
+
+            });
+
+        }
 
         document.getElementById("memories").scrollIntoView({
 
