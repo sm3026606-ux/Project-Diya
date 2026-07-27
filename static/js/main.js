@@ -120,7 +120,7 @@ setInterval(createHeart, 350);
 
 
 // ===============================
-// Enter Button
+// Enter Button + Background Music
 // ===============================
 
 const enterBtn = document.getElementById("enterBtn");
@@ -130,18 +130,28 @@ if (enterBtn) {
 
     enterBtn.addEventListener("click", () => {
 
+        // Music Start
         if (bgMusic) {
 
             bgMusic.volume = 1;
 
-            bgMusic.play().catch(err => {
+            bgMusic.play()
+                .then(() => {
 
-                console.log("Music Error:", err);
+                    localStorage.setItem("musicPlaying", "true");
 
-            });
+                    console.log("🎵 Music Started");
+
+                })
+                .catch(err => {
+
+                    console.log(err);
+
+                });
 
         }
 
+        // Scroll
         document.getElementById("memories").scrollIntoView({
 
             behavior: "smooth"
@@ -151,6 +161,27 @@ if (enterBtn) {
     });
 
 }
+
+
+// ===============================
+// Auto Resume Music
+// ===============================
+
+window.addEventListener("load", () => {
+
+    if (
+
+        localStorage.getItem("musicPlaying") === "true"
+
+        && bgMusic
+
+    ) {
+
+        bgMusic.play().catch(() => {});
+
+    }
+
+});
 
 // ===============================
 // Popup System
