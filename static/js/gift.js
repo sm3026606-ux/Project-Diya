@@ -41,25 +41,48 @@ function openGift() {
 
     const message = giftMessage.querySelector("p");
 
-const originalText = message.innerHTML;
+typeMessage(message, 35);
 
-message.innerHTML = "";
+    // ===================================
+// HTML Typewriter Effect
+// ===================================
 
-let i = 0;
+function typeMessage(element, speed = 35) {
 
-const typing = setInterval(() => {
+    const html = element.innerHTML;
 
-    message.innerHTML += originalText.charAt(i);
+    element.innerHTML = "";
 
-    i++;
+    let i = 0;
 
-    if (i >= originalText.length) {
+    function type() {
 
-        clearInterval(typing);
+        if (i >= html.length) return;
+
+        // Handle HTML tags like <br>
+        if (html[i] === "<") {
+
+            const close = html.indexOf(">", i);
+
+            element.innerHTML += html.substring(i, close + 1);
+
+            i = close + 1;
+
+        } else {
+
+            element.innerHTML += html[i];
+
+            i++;
+
+        }
+
+        setTimeout(type, speed);
 
     }
 
-}, 35);
+    type();
+
+}
 
     gsap.fromTo("#giftMessage",
 
