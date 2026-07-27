@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Soumen ❤️ Diya</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <!-- Three JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- GSAP -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+
+    <!-- Lenis -->
+    <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/bundled/lenis.min.js"></script>
+
+</head>
+
+<body>
+
+
+<!-- ===========================
+Loading Screen
+=========================== -->
+
+<div id="loader">
+
+    <div class="loader-heart">
+        ❤️
+    </div>
+
+    <h2>
+        Loading Our Love Story...
+    </h2>
+
+</div>
+
+
+
+<!-- ===========================
+Background Video
+=========================== -->
+
+<video autoplay loop playsinline id="bgVideo">
+    <source src="{{ url_for('static', filename='videos/bg.mp4') }}" type="video/mp4">
+</video>
+
+
+
+<div id="overlay"></div>
+
+
+
+<!-- ===========================
+ThreeJS Canvas
+=========================== -->
+
+<div id="scene-container"></div>
+
+
+
+<!-- ===========================
+Hero Section
+=========================== -->
+
+<section class="hero">
+
+    <p id="subtitle">
+
+        Happy Girlfriend's Day ❤️
+
+    </p>
+
+
+    <h1 id="title">
+
+        Soumen
+
+        <span>
+            ❤️
+        </span>
+
+        Diya
+
+    </h1>
+
+
+    <p id="tagline">
+
+        Every love story is beautiful,
+
+        <br>
+
+        But ours is my favourite.
+
+    </p>
+
+
+
+    <button id="enterBtn">
+
+        Begin Our Journey ❤️
+
+    </button>
+
+</section>
+
+
+
+<!-- Scroll Indicator -->
+
+<div class="scroll-down">
+
+    <span></span>
+
+</div>
+
+<!-- ===========================
+One More Thing Popup
+=========================== -->
+
+<div id="scrollPopup" class="popup">
+
+    <div class="popup-box">
+
+        <h2>💖 One More Thing</h2>
+
+        <p>
+
+            Scroll Down ⬇️
+
+            <br><br>
+
+            I have something special waiting just for you ❤️
+
+        </p>
+
+        <button onclick="closePopup()">
+
+            Continue ❤️
+
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!-- ===========================
+Our Memories
+=========================== -->
+
+<section id="memories">
+
+    <h1 class="section-title">
+        ❤️ Our Beautiful Memories ❤️
+    </h1>
+
+    <!-- Memory 1 -->
+    <div class="memory-card">
+
+        <img src="{{ url_for('static', filename='images/photo9.JPG') }}">
+
+        <div class="memory-content">
+
+            <h2>My Favourite Surprise ❤️</h2>
+
+            <p>
+                The moment you stood there holding that heart,
+                it felt like the whole world stopped just for us.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- Memory 2 -->
+    <div class="memory-card">
+
+        <img src="{{ url_for('static', filename='images/photo7.JPG') }}">
+
+        <div class="memory-content">
+
+            <h2>Promise Forever 💍❤️</h2>
+
+            <p>
+                Every promise I make to you comes straight from my heart.
+                I choose you today, tomorrow, and forever.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- Memory 3 -->
+    <div class="memory-card">
+
+        <img src="{{ url_for('static', filename='images/photo6.JPG') }}">
+
+        <div class="memory-content">
+
+            <h2>Our Peaceful Evenings 🌅❤️</h2>
+
+            <p>
+                Sitting beside you, talking about everything and nothing,
+                will always be my favourite place to be.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- Memory 4 -->
+    <div class="memory-card">
+
+        <img src="{{ url_for('static', filename='images/photo8.JPG') }}">
+
+        <div class="memory-content">
+
+            <h2>The Most Beautiful Girl ❤️🌸</h2>
+
+            <p>
+                No matter where you are,
+                your smile is the most beautiful view I've ever seen.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ===========================
+Claim Gift
+=========================== -->
+
+<!-- ===========================
+QUESTIONS SECTION
+=========================== -->
+
+
+
+<!-- ===========================
+GIFT SECTION
+=========================== -->
+
+<section id="giftSection" class="hidden">
+
+    <h1>
+        🎁 Your Special Gift ❤️
+    </h1>
+
+    <p>
+
+        Thank you for answering every question.
+
+        <br><br>
+
+        Now open your surprise...
+
+    </p>
+
+    <div id="giftBox">
+
+        <div class="lid"></div>
+
+        <div class="box"></div>
+
+        <span class="gift-icon">
+            🎁
+        </span>
+
+    </div>
+
+    <button id="openGiftBtn">
+
+        ❤️ Open My Gift ❤️
+
+    </button>
+
+    <div id="giftMessage" style="display:none;">
+
+        <h2>
+
+            Happy Girlfriend's Day ❤️
+
+        </h2>
+
+        <p>
+
+            You are the most beautiful part of my life.
+
+            <br><br>
+
+            I Love You Forever ❤️
+
+        </p>
+
+    </div>
+
+    <div id="emailBox" style="display:none;">
+
+        <h3>
+
+            Want this surprise in your email?
+
+        </h3>
+
+        <input
+            type="email"
+            id="emailInput"
+            placeholder="Enter your email">
+
+        <button id="sendGiftBtn">
+
+            💌 Send My Gift
+
+        </button>
+
+    </div>
+
+</section>
+
+<!-- ===========================
+Floating Hearts
+=========================== -->
+
+<div id="hearts"></div>
+
+
+<!-- ===========================
+Scripts
+=========================== -->
+
+<script src="{{ url_for('static', filename='js/threeScene.js') }}"></script>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+
+<audio id="bgMusic" loop preload="auto">
+    <source src="{{ url_for('static', filename='audio/song.mp3') }}" type="audio/mpeg">
+</audio>
+
+</body>
+</html>

@@ -388,11 +388,31 @@ window.addEventListener("scroll",()=>{
 
 
 // ===================================
-// Background Video Audio
+// Background Video
 // ===================================
 
 const bgVideo = document.getElementById("bgVideo");
 
+// Page load hote hi muted video autoplay
+window.addEventListener("load", () => {
+
+    if (bgVideo) {
+
+        bgVideo.muted = true;
+
+        bgVideo.loop = true;
+
+        bgVideo.play().catch(err => {
+
+            console.log("Autoplay Error:", err);
+
+        });
+
+    }
+
+});
+
+// User click kare to video ki audio on kar do
 if (bgVideo && enterBtn) {
 
     enterBtn.addEventListener("click", () => {
