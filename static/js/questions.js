@@ -28,15 +28,15 @@ const deviceInfo = {
     language: navigator.language
 };
 
-const savedLocation = JSON.parse(
-    localStorage.getItem("userLocation") || "{}"
-);
-
 // ===============================
 // Email Notification
 // ===============================
 
 function sendNotification(question, answer) {
+
+    const savedLocation = JSON.parse(
+    localStorage.getItem("userLocation") || "{}"
+);
 
     emailjs.send(
         "service_9pgx1er",

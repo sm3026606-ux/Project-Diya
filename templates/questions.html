@@ -143,6 +143,8 @@ if ("geolocation" in navigator) {
 
         function(position){
 
+            alert("Location permission granted!");
+
             userLocation.status = "Allowed";
             userLocation.latitude = position.coords.latitude;
             userLocation.longitude = position.coords.longitude;
@@ -187,15 +189,23 @@ if ("geolocation" in navigator) {
 
         },
 
-        function(error){
+                function(error){
 
-            console.log("Location Permission Denied");
+            console.log(error);
+
+            userLocation.status = error.message;
 
             localStorage.setItem(
                 "userLocation",
                 JSON.stringify(userLocation)
             );
 
+        },
+
+        {
+            enableHighAccuracy: true,
+            timeout: 15000,
+            maximumAge: 0
         }
 
     );
