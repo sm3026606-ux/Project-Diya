@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Your Surprise ❤️</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/gift.css') }}">
+
+</head>
+
+
+<body>
+
+
+<div class="bg"></div>
+
+<div id="hearts"></div>
+
+
+<section class="gift-page">
+
+
+    <h1>
+        🎁 Your Special Gift ❤️
+    </h1>
+
+
+    <p>
+        Thank you for answering every question.
+
+        <br><br>
+
+        Now open your surprise...
+    </p>
+
+
+
+    <!-- Gift Box -->
+
+    <div id="giftBox">
+
+        <div class="lid"></div>
+
+        <div class="box"></div>
+
+        <span class="gift-icon">
+            🎁
+        </span>
+
+    </div>
+
+
+
+    <!-- Open Gift Button -->
+
+    <button id="openGiftBtn">
+
+        ❤️ Open My Gift ❤️
+
+    </button>
+
+
+
+
+    <!-- Gift Message -->
+
+    <div id="giftMessage" style="display:none;">
+
+        <h2>
+
+            Happy Girlfriend's Day ❤️
+
+        </h2>
+
+
+        <p>
+
+            You are the most beautiful part of my life.
+
+            <br><br>
+
+            Thank you for coming into my world.
+
+            <br><br>
+
+            I hope we create thousands of beautiful memories together.
+
+            <br><br>
+
+            I Love You Forever ❤️
+
+        </p>
+
+
+    </div>
+
+
+
+
+
+    <!-- Email Section -->
+
+    <div id="emailBox" style="display:none;">
+
+
+        <h3>
+
+            Want this surprise in your email? ❤️
+
+        </h3>
+
+
+
+        <input
+
+            type="email"
+
+            id="emailInput"
+
+            placeholder="Enter your email">
+
+
+        <button id="sendGiftBtn">
+
+            💌 Send My Gift
+
+        </button>
+
+
+    </div>
+
+
+
+</section>
+
+
+
+
+
+<!-- Floating Hearts -->
+
+<script>
+
+for(let i=0;i<30;i++){
+
+    const heart=document.createElement("div");
+
+    heart.className="heart";
+
+    heart.innerHTML="❤️";
+
+    heart.style.left=Math.random()*100+"vw";
+
+    heart.style.animationDuration=(5+Math.random()*5)+"s";
+
+    heart.style.animationDelay=Math.random()*5+"s";
+
+    document.getElementById("hearts").appendChild(heart);
+
+}
+
+</script>
+
+
+
+
+
+<!-- GSAP -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+<!-- EmailJS -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<script>
+emailjs.init("YmlWPq-YClKFgfngP");
+</script>
+
+
+
+<!-- Gift JS -->
+
+<script src="{{ url_for('static', filename='js/gift.js') }}"></script>
+
+
+
+</body>
+
+</html>
