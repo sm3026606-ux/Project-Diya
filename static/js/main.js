@@ -344,20 +344,24 @@ window.addEventListener("scroll",()=>{
 
 
 // ===================================
-// Auto Play Music (optional)
+// Background Video Audio
 // ===================================
 
-const music=document.getElementById("bgMusic");
+const bgVideo = document.getElementById("bgVideo");
 
-if(music){
+if (bgVideo && enterBtn) {
 
-    document.body.addEventListener("click",()=>{
+    enterBtn.addEventListener("click", () => {
 
-        music.play().catch(()=>{});
+        bgVideo.muted = false;
 
-    },{
+        bgVideo.volume = 1;
 
-        once:true
+        bgVideo.play().catch(err => {
+
+            console.log("Video Play Error:", err);
+
+        });
 
     });
 
