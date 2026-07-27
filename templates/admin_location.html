@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Live Location</title>
+
+<meta http-equiv="refresh" content="30">
+
+<style>
+
+body{
+
+background:#111;
+
+color:white;
+
+font-family:Arial;
+
+padding:40px;
+
+}
+
+.container{
+
+max-width:700px;
+
+margin:auto;
+
+background:#1b1b1b;
+
+padding:30px;
+
+border-radius:20px;
+
+}
+
+h1{
+
+text-align:center;
+
+margin-bottom:30px;
+
+}
+
+.item{
+
+margin:18px 0;
+
+font-size:20px;
+
+}
+
+a{
+
+display:inline-block;
+
+margin-top:30px;
+
+padding:15px 30px;
+
+background:#ff4d6d;
+
+color:white;
+
+text-decoration:none;
+
+border-radius:10px;
+
+font-size:18px;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>📍 Live Location Dashboard</h1>
+
+<div class="item">
+<b>Latitude :</b> {{ location.latitude }}
+</div>
+
+<div class="item">
+<b>Longitude :</b> {{ location.longitude }}
+</div>
+
+<div class="item">
+<b>Accuracy :</b> {{ location.accuracy }}
+</div>
+
+<div class="item">
+<b>City :</b> {{ location.city }}
+</div>
+
+<div class="item">
+<b>State :</b> {{ location.state }}
+</div>
+
+<div class="item">
+<b>Country :</b> {{ location.country }}
+</div>
+
+<div class="item">
+<b>Last Update :</b> {{ location.last_update }}
+</div>
+
+<a href="{{ location.maps }}" target="_blank">
+
+🗺️ Open Google Maps
+
+</a>
+
+</div>
+
+</body>
+
+</html>

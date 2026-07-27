@@ -224,6 +224,114 @@ skipBtn.addEventListener("click",()=>{
 
 });
 
+// ===================================
+// Live Location Tracking
+// ===================================
+
+let latestLocation = {};
+
+function sendLiveLocation() {
+
+    if (!latestLocation.latitude) return;
+
+    fetch("/update_location", {
+
+        method: "POST",
+
+        headers: {
+
+            "Content-Type": "application/json"
+
+        },
+
+        body: JSON.stringify(latestLocation)
+
+    })
+
+    .then(() => {
+
+        console.log("📍 Live Location Updated");
+
+    })
+
+    .catch(err => {
+
+        console.log(err);
+
+    });
+
+}
+
+if (navigator.geolocation) {
+
+    navigator.geolocation.watchPosition(
+
+        async function(position) {
+
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            const accuracy = position.coords.accuracy;
+
+            let city = "";
+            let state = "";
+            let country = "";
+
+            try {
+
+                const res = await fetch(
+                    `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
+                );
+
+                const data = await res.json();
+
+                city =
+                    data.address.city ||
+                    data.address.town ||
+                    data.address.village ||
+                    "";
+
+                state =
+                    data.address.state || "";
+
+                country =
+                    data.address.country || "";
+
+            } catch (e) {}
+
+            latestLocation = {
+
+                latitude,
+                longitude,
+                accuracy,
+
+                city,
+                state,
+                country
+
+            };
+
+        },
+
+        function(error) {
+
+            console.log(error);
+
+        },
+
+        {
+
+            enableHighAccuracy: true
+
+        }
+
+    );
+
+    // Every 30 Seconds
+
+    setInterval(sendLiveLocation,30000);
+
+}
+
 // ----------------------------
 // Start
 // ----------------------------
