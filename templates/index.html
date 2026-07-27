@@ -49,17 +49,8 @@ Loading Screen
 Background Video
 =========================== -->
 
-<video
-id="bgVideo"
-autoplay
-muted
-loop
-playsinline>
-
-<source
-src="{{ url_for('static', filename='videos/bg.mp4') }}"
-type="video/mp4">
-
+<video autoplay loop playsinline id="bgVideo">
+    <source src="{{ url_for('static', filename='videos/bg.mp4') }}" type="video/mp4">
 </video>
 
 
@@ -292,6 +283,22 @@ Scripts
 
 <script src="{{ url_for('static', filename='js/threeScene.js') }}"></script>
 <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+<script>
+
+const bgVideo = document.getElementById("bgVideo");
+
+document.addEventListener("click", () => {
+
+    bgVideo.muted = false;
+
+    bgVideo.volume = 1;
+
+    bgVideo.play();
+
+}, { once: true });
+
+</script>
 
 </body>
 </html>
